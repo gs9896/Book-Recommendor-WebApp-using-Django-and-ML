@@ -7,3 +7,5 @@ We use Pearsons’R correlation coefficient to measure the linear correlation be
 
 This book recommendation system recommend books that are of buyer’s interest. Recommendation systems are widely used to recommend products to the end users that are most appropriate. This system uses features of collaborative filtering to produce efficient and effective recommendations. Collaborative recommender systems aggregate ratings of objects, recognize commonalities between users on the basis of their ratings, and generate new recommendations.
 
+# ML code is integrated along with Django Views
+
