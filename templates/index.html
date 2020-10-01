@@ -1,0 +1,127 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Books</title>
+  <!-- Bootstrap Core CSS -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+  <!-- Custom Fonts -->
+  <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+
+  <!-- Custom CSS -->
+  <link href="{% static 'css/stylish-portfolio.min.css' %}" rel="stylesheet">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+  <link href="{% static 'css/searchbox.css' %}" rel="stylesheet">
+  <link href="{% static 'css/bookstyle.css' %}" rel="stylesheet">
+</head>
+
+<body id="page-top">
+  <div class="serres">
+  <div class="search-box">
+    <form action="search" method="post">  
+    {% csrf_token %}  
+    <input class="search-txt" type="text" name="search" placeholder="Search">
+    <button class="search-btn" type="submit">
+    <i class="fas fa-search"></i>
+    </button>
+    </form>
+  </div>
+  <!-- Navigation -->
+  <a class="menu-toggle rounded" href="#">
+    <i class="fas fa-bars"></i>
+  </a>
+  <nav id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li class="sidebar-brand">
+        <a class="js-scroll-trigger" href="{% url 'accounts' %}">Welcome {{user.username}}</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="{% url 'accounts' %}">Home</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="{% url 'logout' %}">Logout</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+<div class="main-cont">
+    {% if searchres %}
+    <h1 class="textstyle">Similar Search Results</h1> 
+    <div class="lbox">
+    <ul>
+    {%for dat in  searchres%}
+    <li class="liststyle">{{dat}}</li><hr class="linebreak">
+    {% endfor %}
+    </ul>   
+  </div>
+    {% endif %}
+  <h1 class="textstyle">Top Reviewed</h1>
+  <div class="container">
+    {%for a in  Topbooks.itertuples %}
+    <div class="card">
+      <div class="face face1">
+        <div class="content">
+          <h2>{{a.BookTitle}}</h2>
+        </div>
+      </div>
+      <div class="face face2">
+        <div class="content">
+        <P><b>Publisher :</b> {{a.Publisher}}</p>
+        <P><b>Author :</b> {{a.BookAuthor}}</p>
+        <P><b>Year of Publishing :</b> {{a.YearOfPublication}}</p>
+          <a href="{% url 'saveread' bookread=a.BookTitle %}" class="button1">Mark Read</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    <div class="formbut">
+      <form action="index" method="post">
+        {% csrf_token %}
+        <button class="button" type="submit" name="prev">Previous</button>
+        <button class="button" type="submit" name="next">Next</button>
+      </form>
+    </div>
+  </div>
+
+  <h1 class="textstyle">Explored By {{user.username}}</h1>
+  <div class="lbox">
+    <ul>
+      {%for expo in Explored%}
+    <li class="liststyle">{{expo}}</li><hr class="linebreak">
+    {% endfor %}
+    </ul>   
+  </div>
+
+  
+  <h1 class="textstyle">Recommendations</h1>
+  <div class="lbox">
+    <ul>
+      {%for b in Simlarity%}
+    <li class="liststyle">{{b}}<a href="{% url 'saveread' bookread=b %}" class="button2">Mark Read</a></li><hr class="linebreak">
+    {% endfor %}
+    </ul>   
+  </div>
+
+ 
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="{% static 'js/stylish-portfolio.min.js' %}"></script>
+</div>
+</body>
+
+</html>

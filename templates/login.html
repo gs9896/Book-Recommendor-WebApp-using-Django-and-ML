@@ -1,0 +1,118 @@
+{% load static %}
+{% static "img" as baseurl %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Account</title>
+  <!-- Bootstrap Core CSS -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+  <!-- Custom Fonts -->
+  <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'vendor/simple-line-icons/css/simple-line-icons.css' %}" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link href="{% static 'css/stylish-portfolio.min.css' %}" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <a class="menu-toggle rounded" href="#">
+    <i class="fas fa-bars"></i>
+  </a>
+  <nav id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li class="sidebar-brand">
+        <a class="js-scroll-trigger" href="{% url 'accounts' %}">Start Surfing</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="{% url 'accounts' %}">Home</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="{% url 'signup' %}">Sign Up/Sign In</a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Header -->
+  <header>
+    <div class="container text-center my-auto">
+      <div class="cont">
+        <div class="form sign-in">
+          <h2>Sign In</h2>
+          {% if error_message %}
+          <p class="errom"><strong>{{ error_message }}</strong></p>
+          {% endif %}
+          <form role="form" action="../login/" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <label>
+            <span>User Name</span>
+            <input type="text" maxlength="30" name="username">
+          </label>
+          <label>
+            <span>Password</span>
+            <input type="password" maxlength="30" name="password">
+          </label>
+          <button class="submit" type="submit" name="sigin">Sign In</button>
+          </form>
+        </div>
+    
+        <div class="sub-cont">
+          <div class="img">
+            <div class="img-text m-up">
+              <h2>New here?</h2>
+              <p>Sign up and discover great amount of new Stuff!</p>
+            </div>
+            <div class="img-text m-in">
+              <h2>One of us?</h2>
+              <p>If you already has an account, just sign in. We've missed you!</p>
+            </div>
+            <div class="img-btn">
+              <span class="m-up">Sign Up</span>
+              <span class="m-in">Sign In</span>
+            </div>
+          </div>
+          <div class="form sign-up">
+            <h2>Sign Up</h2>
+            <form action="../signup/" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for field in form %}
+                <span class="errom">{{ field.errors }}</span>
+                <label for="movie_title"><span>{{ field.label_tag }}</span>{{ field }}</label>
+                {% endfor %}
+                <button type="submit" class="submit" name="sigup">Sign Up Now</button>
+            </form>
+              
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="overlay"></div>
+  </header>
+
+ 
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="{% static 'js/stylish-portfolio.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+
+</body>
+
+</html>
